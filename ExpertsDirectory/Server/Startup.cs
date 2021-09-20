@@ -1,9 +1,13 @@
+using ExpertsDirectory.Database;
 using ExpertsDirectory.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace ExpertsDirectory.Server
 {
@@ -28,7 +32,7 @@ namespace ExpertsDirectory.Server
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ExpertsDirectoryContext dbContext, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
@@ -59,6 +63,15 @@ namespace ExpertsDirectory.Server
                 endpoints.MapFallbackToFile("index.html");
                 //endpoints.MapFallback(r => )
             });
+
+            try
+            {
+                dbContext.Database.Migrate();
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Message);
+            }
         }
     }
 }

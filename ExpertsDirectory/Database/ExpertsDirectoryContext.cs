@@ -26,23 +26,5 @@ namespace ExpertsDirectory.Database
                 .UseLoggerFactory(ConsoleLogger)
                 .EnableSensitiveDataLogging()
                 .UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ExpertsDirectory");
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            //#pragma warning disable 8634
-            //            modelBuilder.Entity<Member>().Property(m => m.Friends).HasJsonConversion();
-            //#pragma warning restore 8634
-            //            modelBuilder.Entity<Member>().Property(m => m.Tags).HasJsonConversion();
-
-            //modelBuilder.Entity<Member>().Property(m => m.Friends).HasConversion(
-            //    friends => friends.ToJson(),
-            //    json => json.FromJson<List<Friend>>());
-
-            //modelBuilder.Entity<Member>().Property(m => m.Tags).HasConversion(
-            //    tags => tags.ToJson(),
-            //    json => json.FromJson<List<string>>());
-        }
     }
 }
