@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\ExpertsDirectory.Shared.csproj" />
+    <ProjectReference Include="..\Models\ExpertsDirectory.Models.csproj" />
   </ItemGroup>
-
 </Project>

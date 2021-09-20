@@ -1,3 +1,4 @@
+using ExpertsDirectory.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,9 @@ namespace ExpertsDirectory.Server
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSwaggerGen();
+            services.AddHttpClient();
+            services.AddExpertsDirectoryServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,9 +38,13 @@ namespace ExpertsDirectory.Server
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Experts Directory API V1");
+            });
 
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
@@ -49,6 +57,7 @@ namespace ExpertsDirectory.Server
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
+                //endpoints.MapFallback(r => )
             });
         }
     }
